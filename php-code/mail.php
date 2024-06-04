@@ -30,8 +30,8 @@ include 'functions.php';
         $mail->isSMTP();                                        // Set mailer to use SMTP
         $mail->Host = 'smtp.gmail.com';                        // Specify main and backup SMTP servers
         $mail->SMTPAuth = true;                               // Enable SMTP authentication
-        $mail->Username = 'ansumanyt8@gmail.com';            // SMTP username
-        $mail->Password = 'blmmpxrpiydypwnq';               // SMTP password
+        $mail->Username = 'secret@gmail.com';                // SMTP username
+        $mail->Password = 'secret';                         // SMTP password
         $mail->SMTPSecure = 'tls';                         // Enable TLS encryption, `ssl` also accepted
         $mail->Port = 587;
         $mail->SMTPOptions = array(
@@ -64,7 +64,7 @@ include 'functions.php';
         if (isset($_POST['submit'])) {
             if ($row) {
 
-                $mail->setFrom('ansumanyt8@gmail.com', 'ADMIN');
+                $mail->setFrom('secret@gmail.com', 'ADMIN');
                 $mail->addAddress($row['email']); // Add a recipient
                 $mail->isHTML(true);
                 $mail->Subject = $_POST['subject'];
