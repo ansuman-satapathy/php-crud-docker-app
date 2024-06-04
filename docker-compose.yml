@@ -1,0 +1,47 @@
+services:
+  nginx:
+    build: ./nginx/
+    ports:
+      - 80:80
+
+    volumes:
+      - ./php-code/:/var/www/html/
+
+  php:
+    build: ./php/
+    expose:
+      - 9000
+    volumes:
+      - ./php-code/:/var/www/html/
+
+  mysql:
+    image: mariadb
+    volumes:
+      - mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: emp_management
+      MYSQL_USER: ansuman
+      MYSQL_PASSWORD_FILE: /run/secrets/db_password
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
+    secrets:
+      - db_password
+      - db_root_password
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: root
+      PMA_PASSWORD: mariadb
+    ports:
+      - "8080:80"
+    depends_on:
+      - mysql
+secrets:
+  db_password:
+    file: ./secrets/db_password.txt
+  db_root_password:
+    file: ./secrets/db_root_password.txt
+
+volumes:
+  mysql-data:
